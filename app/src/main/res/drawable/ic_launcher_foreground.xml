@@ -1,0 +1,42 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Center Metallic Stick Rod -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M52,14h4v80h-4z" />
+
+    <!-- 3 Glowing Golden Kebab Meat Layers -->
+    <!-- Top Layer -->
+    <path
+        android:fillColor="#FF3B30"
+        android:pathData="M34,30 C 34,26, 74,26, 74,30 L 68,46 L 40,46 Z" />
+    <!-- Mid Layer -->
+    <path
+        android:fillColor="#FF9500"
+        android:pathData="M31,48 L 77,48 L 71,64 L 37,64 Z" />
+    <!-- Bottom Layer -->
+    <path
+        android:fillColor="#FFD60A"
+        android:pathData="M36,66 L 72,66 L 66,78 L 42,78 Z" />
+
+    <!-- Salt Shaker Flakes -->
+    <!-- Sprinkle 1 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,25h3v3h-3z" />
+    <!-- Sprinkle 2 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M81,42h4v4h-4z" />
+    <!-- Sprinkle 3 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M26,55h3v3h-3z" />
+    <!-- Sprinkle 4 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M78,70h3v3h-3z" />
+</vector>
