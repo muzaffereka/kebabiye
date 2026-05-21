@@ -1,3 +1,5 @@
+import java.io.File as JFile
+
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.compose)
@@ -123,3 +125,41 @@ dependencies {
   "ksp"(libs.androidx.room.compiler)
   "ksp"(libs.moshi.kotlin.codegen)
 }
+
+abstract class CopyApkTask : DefaultTask() {
+  @get:Input
+  abstract val buildApkPath: org.gradle.api.provider.Property<String>
+  @get:Input
+  abstract val destApkPath1: org.gradle.api.provider.Property<String>
+  @get:Input
+  abstract val destApkPath2: org.gradle.api.provider.Property<String>
+
+  @TaskAction
+  fun run() {
+    val src = JFile(buildApkPath.get())
+    if (src.exists()) {
+      val target1 = JFile(destApkPath1.get())
+      target1.parentFile.mkdirs()
+      src.copyTo(target1, overwrite = true)
+      logger.lifecycle("Successfully copied debug APK to App project folder: ${destApkPath1.get()}")
+
+      val target2 = JFile(destApkPath2.get())
+      target2.parentFile.mkdirs()
+      src.copyTo(target2, overwrite = true)
+      logger.lifecycle("Successfully copied debug APK to Root folder: ${destApkPath2.get()}")
+    } else {
+      logger.warn("Source APK not found at ${buildApkPath.get()}")
+    }
+  }
+}
+
+tasks.register<CopyApkTask>("copyApks") {
+  buildApkPath.set("${layout.buildDirectory.get().asFile.absolutePath}/outputs/apk/debug/app-debug.apk")
+  destApkPath1.set("${projectDir.absolutePath}/apk/debug/kebap_ustasi_game.apk")
+  destApkPath2.set("${rootDir.absolutePath}/apk/debug/kebap_ustasi_game.apk")
+}
+
+tasks.matching { it.name == "assembleDebug" }.configureEach {
+  finalizedBy("copyApks")
+}
+
