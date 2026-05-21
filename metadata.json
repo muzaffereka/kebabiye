@@ -1,5 +1,5 @@
 {
-  "name": "Kebap Ustası: Tuzlama İmparatorluğu",
+  "name": "Kebap Ustası",
   "description": "Kebab Master: The Salting Empire is an idle tycoon clicker game styled in neon colors. Tap the skewers, hire helpers, and build a massive salting empire!",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

@@ -6,23 +6,81 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "game_state")
 data class GameState(
     @PrimaryKey val id: Int = 1,
-    val totalSaltPoints: Double = 0.0,
-    val totalAccumulatedPointsOnly: Double = 0.0, // Used for achievements and prestige target checking
+    val saltPoints: Double = 0.0,
+    val totalEverEarned: Double = 0.0,
+    val lastSessionTimestamp: Long = System.currentTimeMillis(),
     val prestigeCount: Int = 0,
-    val spiceMultiplier: Double = 1.0,
-    val lastActiveTimestamp: Long = System.currentTimeMillis(),
+    val spicePowerMultiplier: Double = 1.0,
+    val currentCityIndex: Int = 0,
+    val displayName: String = "Kebap Sever",
+    val isVIP: Boolean = false,
+    val eventCurrency: Double = 0.0,
     val robotHandUnlocked: Boolean = false,
-    
-    // Levels of the 8 business upgrades
-    val level0: Int = 0, // Tuz Değirmeni
-    val level1: Int = 0, // Közleme Fırını
-    val level2: Int = 0, // Baharat Deposu
-    val level3: Int = 0, // Pide Atölyesi
-    val level4: Int = 0, // Sokak Arabası
-    val level5: Int = 0, // Kebapçı Dükkanı
-    val level6: Int = 0, // Restoran Zinciri
-    val level7: Int = 0, // Kebap İmparatorluğu
-    
-    // Unlocked achievements: comma-separated list of IDs (e.g., "1_1000,1_1000000")
-    val unlockedAchievements: String = ""
+    val friendCode: String = "",
+    val totalGiftsSentCount: Int = 0,
+    val totalOfflineCollectsCount: Int = 0,
+    val totalTapCount: Int = 0,
+    val activeSeasonEventId: String = "ramadan_event",
+    val hasSocialPackage: Boolean = false,
+    val hasSeasonPass: Boolean = false,
+    val hasWorldTourExpansion: Boolean = false,
+    val hasParallelPackage: Boolean = false
+)
+
+@Entity(tableName = "buildings")
+data class BuildingState(
+    @PrimaryKey val compoundId: String = "", // format: "cityIndex_buildingId"
+    val id: Int = 0, // building index 0..7
+    val cityIndex: Int = 0,
+    val level: Int = 0,
+    val totalPurchased: Int = 0
+)
+
+@Entity(tableName = "achievements")
+data class AchievementState(
+    @PrimaryKey val id: String = "",
+    val isUnlocked: Boolean = false,
+    val progress: Double = 0.0,
+    val unlockedTimestamp: Long = 0L
+)
+
+@Entity(tableName = "season_event")
+data class SeasonEventState(
+    @PrimaryKey val eventId: String = "",
+    val isActive: Boolean = false,
+    val endTimestamp: Long = 0L,
+    val specialBuildingLevel: Int = 0,
+    val altinTuzEarned: Double = 0.0
+)
+
+@Entity(tableName = "leaderboard")
+data class LeaderboardEntry(
+    @PrimaryKey val rank: Int = 0,
+    val playerName: String = "",
+    val totalEarned: Double = 0.0,
+    val cityReached: String = "",
+    val prestigeCount: Int = 0,
+    val isLocalPlayer: Boolean = false
+)
+
+@Entity(tableName = "friend_profiles")
+data class FriendProfile(
+    @PrimaryKey val friendCode: String = "",
+    val displayName: String = "",
+    val totalEarned: Double = 0.0,
+    val cityIndex: Int = 0,
+    val prestigeCount: Int = 0,
+    val buildingSnapshot: String = "", // JSON compact snapshot of buildings
+    val lastUpdated: Long = 0L,
+    val lastGiftSentTimestamp: Long = 0L,
+    val dailyVisitTapsUsed: Int = 0
+)
+
+@Entity(tableName = "gift_codes")
+data class GiftCode(
+    @PrimaryKey val code: String = "",
+    val senderName: String = "",
+    val saltAmount: Double = 0.0,
+    val expiryTimestamp: Long = 0L,
+    val isRedeemed: Boolean = false
 )
